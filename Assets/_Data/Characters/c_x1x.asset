@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBlockAction: 0
   _middleBlockAction: 2
-  _bottomBlockAction: 0
+  _bottomBlockAction: 1

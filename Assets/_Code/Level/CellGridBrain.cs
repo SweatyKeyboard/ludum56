@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using _Code.Characters;
 using _Code.Level.Blocks;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Code.Level
@@ -45,7 +47,7 @@ namespace _Code.Level
                     if (blockId != 0)
                     {
                         if (!_blocks.ContainsKey(new Vector2Int(i, j)))
-                            SpawnBlock(i, j, _cellGridSOData.BlocksPrefabs[blockId - 1]);
+                            SpawnBlock(i, j, _cellGridSOData.BlocksPrefabs[blockId - 1], true);
                     }
                 }
             }
@@ -61,17 +63,6 @@ namespace _Code.Level
                     _cells[j, i] = levelData.Cells[j + i * levelData.Width];
                 }
             }
-        }
-
-        private void SpawnBlock(int x, int y, Block blocksPrefab)
-        {
-            var spawnedBlock = Instantiate(blocksPrefab,
-                    transform.position + new Vector3(x, y, 0) * _cellGridSOData.BlockSize,
-                    Quaternion.identity);
-            
-            spawnedBlock.transform.localScale *= _cellGridSOData.BlockSize;
-            
-            _blocks.Add(new Vector2Int(x, y), spawnedBlock);
         }
 
         private void OnDrawGizmos()
@@ -131,9 +122,30 @@ namespace _Code.Level
             return actionPerformed;
         }
 
-        private void DestroyBlock(int positionX, int positionY)
+        private void SpawnBlock(int x, int y, Block blocksPrefab, bool isSkipAnimation = false)
+        {
+            var spawnedBlock = Instantiate(blocksPrefab,
+                    transform.position + new Vector3(x, y, 0) * _cellGridSOData.BlockSize,
+                    Quaternion.identity);
+
+            if (isSkipAnimation)
+            {
+                spawnedBlock.transform.localScale = Vector3.one * _cellGridSOData.BlockSize;
+            }
+            else
+            {
+                spawnedBlock.transform.localScale = Vector3.zero; 
+                spawnedBlock.transform.DOScale(Vector3.one * _cellGridSOData.BlockSize, 2f / 3f).SetEase(Ease.InCubic);
+            
+            }
+            
+            _blocks.Add(new Vector2Int(x, y), spawnedBlock);
+        }
+
+        private async UniTask DestroyBlock(int positionX, int positionY)
         {
             var block = _blocks.FirstOrDefault( x=> x.Key.x == positionX && x.Key.y == positionY);
+            await block.Value.transform.DOScale(Vector3.zero, 2f / 3f).SetEase(Ease.OutQuint);
             Destroy(block.Value.gameObject);
         }
     }

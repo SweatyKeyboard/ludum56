@@ -10,9 +10,11 @@ namespace _Code.Characters
     {
         private static readonly int OnJump = Animator.StringToHash("OnJump");
         private static readonly int OnMove = Animator.StringToHash("OnMove");
+        private static readonly int OnAct = Animator.StringToHash("OnAct");
+        private static readonly int OnDeath = Animator.StringToHash("OnDeath");
         
         [SerializeField] private CharacterSOData _data;
-        [SerializeField] private float _blockMoveTime = 0.8f;
+        [SerializeField] private float _blockMoveTime = 2f / 3f;
         [SerializeField] private Animator _animator;
         
         private ECharacterAnimation _selectedAnim = 0;
@@ -46,15 +48,29 @@ namespace _Code.Characters
 
         public async UniTask PerformAction()
         {
+            _animator.SetTrigger(OnAct);
             for (var i = 0; i < 3; i++)
             {
                 var isSuccess = TriedToPerformAction?.Invoke(new CharacterPerformActionData(
                         _data.Actions[i],
-                        _gridPosition + new Vector2Int(1, i - 1)
-                ));
+                        _gridPosition + new Vector2Int(1, -i + 1)
+                )) ?? false;
+
+                if (isSuccess)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(_blockMoveTime));
+                }
             }
+
+            Die().Forget();
         }
 
+        private async UniTask Die()
+        {
+            _animator.SetTrigger(OnDeath);
+            await UniTask.Delay(TimeSpan.FromSeconds(_blockMoveTime));
+            Destroy(gameObject);
+        }
 
 
         private enum ECharacterAnimation

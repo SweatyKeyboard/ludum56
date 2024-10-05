@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7f9b0f178a4e11a44215b3248baf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data: {fileID: 0}
   _blockMoveTime: 0.75
   _animator: {fileID: 4065683899819941285}
 --- !u!1 &8595269810717218019
@@ -427,7 +428,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 565712619560449703}
   - {fileID: 8965896521229010163}
@@ -546,7 +547,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2229034449305322564}
   m_Father: {fileID: 2617712759133315457}
