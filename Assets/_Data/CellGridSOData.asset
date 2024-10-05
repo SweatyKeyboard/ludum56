@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d947134b764642b29f384d7cdfcdf1, type: 3}
+  m_Name: CellGridSOData
+  m_EditorClassIdentifier: 
+  <Width>k__BackingField: 10
+  <Height>k__BackingField: 8
+  <BlockSize>k__BackingField: 1
+  <BlocksPrefabs>k__BackingField:
+  - {fileID: 9129461680519087733, guid: 776956807bcc9f64f9660b0da85a017b, type: 3}
