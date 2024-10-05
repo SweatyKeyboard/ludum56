@@ -11,6 +11,7 @@ namespace _Code.Level
         
         private int[,] _cells;
         private readonly List<Vector2Int> _blocksList = new();
+        private readonly Vector3 _adjustPositionVector = new (0, -0.04f, 0);
 
         private void Start()
         {
@@ -21,6 +22,15 @@ namespace _Code.Level
         public void Initialize()
         {
             RedrawGrid();
+            var lastCell = 0;
+            
+            for (var i = 0; i < _levelSOData.Width; i++)
+            {
+                lastCell = GetAvailableBlockInColumn(i, lastCell);
+                if (lastCell == -1)
+                    return;
+                
+            }
         }
 
         public void RedrawGrid()
@@ -46,7 +56,6 @@ namespace _Code.Level
             {
                 for (var j = 0; j < levelData.Width; j++)
                 {
-                    Debug.Log(j + " + " + i + " * " + levelData.Height);
                     _cells[j, i] = levelData.Cells[j + i * levelData.Width];
                 }
             }
@@ -75,6 +84,22 @@ namespace _Code.Level
                     Gizmos.DrawWireCube(transform.position + new Vector3(i, j, 0) * _cellGridSOData.BlockSize, Vector3.one * _cellGridSOData.BlockSize);
                 }
             }
+        }
+
+        public int GetAvailableBlockInColumn(int columnIndex, int lastColumnAvailableBlock)
+        {
+            
+            for (var i = Mathf.Clamp(lastColumnAvailableBlock - 2, 0, _cellGridSOData.Height); i <= Mathf.Clamp(lastColumnAvailableBlock + 1, 0, _cellGridSOData.Height); i++)
+            {
+                if (_cells[columnIndex, i] != 0 && _cells[columnIndex, i + 1] == 0)
+                    return i + 1;
+            } 
+            return -1;
+        }
+
+        public Vector3 GetCellPosition(int currentColumn, int currentRow)
+        {
+            return transform.position + new Vector3(currentColumn, currentRow, 0) * _cellGridSOData.BlockSize + _adjustPositionVector;
         }
     }
 }
