@@ -23,14 +23,21 @@ namespace _Code.Characters
             
             while (currentRow != -1)
             {
-                Debug.Log(currentColumn);
                 currentRow = _cellGridBrain.GetAvailableBlockInColumn(currentColumn, currentRow);
                 if (currentRow == -1)
-                    return;
+                    break;
                 
-                await _character.MoveToPosition(_cellGridBrain.GetCellPosition(currentColumn, currentRow));
+                await _character.MoveToPosition(_cellGridBrain.GetCellPosition(currentColumn, currentRow), new Vector2Int(currentColumn, currentRow));
                 currentColumn++;
             }
+            
+            StartCharacterActing().Forget();
+        }
+
+        private async UniTask StartCharacterActing()
+        {
+            _character.TriedToPerformAction += _cellGridBrain.TryPerformAction;
+            _character.PerformAction().Forget();
         }
     }
 }
