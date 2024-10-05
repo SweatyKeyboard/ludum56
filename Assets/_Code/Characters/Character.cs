@@ -1,8 +1,10 @@
 using System;
+using _Code.Cards;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Code.Characters
 {
@@ -16,11 +18,19 @@ namespace _Code.Characters
         [SerializeField] private CharacterSOData _data;
         [SerializeField] private float _blockMoveTime = 2f / 3f;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Image _pupil;
+        [SerializeField] private Image _hat;
         
         private ECharacterAnimation _selectedAnim = 0;
         public event Func<CharacterPerformActionData, bool> TriedToPerformAction;
         
         private Vector2Int _gridPosition;
+
+        public void Init(CardSOData data)
+        {
+            _pupil.color = data.PupilColor;
+            _hat.sprite = data.Icon;
+        }
         
         public async UniTask MoveToPosition(Vector3 position, Vector2Int gridPosition)
         {

@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc7c536a36d0485891f347e64e1f2f84, type: 3}
-  m_Name: Tonneler
+  m_Name: Railroader
   m_EditorClassIdentifier: 
-  <Header>k__BackingField: Tonneler
-  <Description>k__BackingField: Build metro
+  <Header>k__BackingField: Railroader
+  <Description>k__BackingField: Changes the creature on the <color=#6ccf63>right</color>
+    its <color=#639be0>middle</color> and <color=#639be0>bottom</color> action to
+    <color=#c9ba49>destroying</color>
   <Data>k__BackingField: {fileID: 11400000, guid: fa6b8e867b10bfe4683ef1c5fb1a93d6, type: 2}
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -758963287, guid: 951d8afe6b82e314b8af0fd75b9bdcc3, type: 3}
+  <PupilColor>k__BackingField: {r: 0.5415094, g: 0.68128085, b: 0.7735849, a: 1}
