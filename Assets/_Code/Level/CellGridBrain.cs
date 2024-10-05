@@ -81,11 +81,15 @@ namespace _Code.Level
 
         public int GetAvailableBlockInColumn(int columnIndex, int lastColumnAvailableBlock)
         {
-            
             for (var i = Mathf.Clamp(lastColumnAvailableBlock - 2, 0, _cellGridSOData.Height - 1); i <= Mathf.Clamp(lastColumnAvailableBlock, 0, _cellGridSOData.Height - 1); i++)
             {
                 if (_cells[columnIndex, i] != 0 && _cells[columnIndex, i + 1] == 0)
+                {
+                    if (i >= lastColumnAvailableBlock && columnIndex > 0 && _cells[Mathf.Clamp(columnIndex - 1, 0, _cellGridSOData.Width - 1), i + 1] != 0)
+                        continue;
+                    
                     return i + 1;
+                }
             } 
             return -1;
         }
@@ -112,7 +116,7 @@ namespace _Code.Level
                 case ECharacterBuildAction.Destroy:
                     if (_cells[data.Position.x, data.Position.y] != 0)
                     {
-                        DestroyBlock(data.Position.x, data.Position.y);
+                        DestroyBlock(data.Position.x, data.Position.y).Forget();
                         _cells[data.Position.x, data.Position.y] = 0;
                         actionPerformed = true;
                     }

@@ -1,4 +1,3 @@
-using System;
 using _Code.Level;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -8,12 +7,18 @@ namespace _Code.Characters
     public sealed class CharactersManager : MonoBehaviour
     {
         [SerializeField] private CellGridBrain _cellGridBrain;
-        [SerializeField] private Character _character;
+        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private Character _characterPrefab;
+        
+        private Character _character;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SpawnCharacter();
                 StartCharacterMoving().Forget();
+            }
         }
 
         public async UniTask StartCharacterMoving()
@@ -32,6 +37,12 @@ namespace _Code.Characters
             }
             
             StartCharacterActing().Forget();
+        }
+
+        private void SpawnCharacter()
+        {
+            var character = Instantiate(_characterPrefab, _spawnPoint.position, Quaternion.identity);
+            _character = character;
         }
 
         private async UniTask StartCharacterActing()

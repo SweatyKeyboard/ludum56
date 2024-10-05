@@ -32,7 +32,7 @@ namespace _Code.Characters
                     _selectedAnim = ECharacterAnimation.Jump;
                     _animator.SetTrigger(OnJump);
                 }
-                await transform.DOJump(position, 0.5f, 1, _blockMoveTime).SetEase(Ease.Linear);
+                await transform.DOJump(position, 0.33f, 1, _blockMoveTime).SetEase(Ease.Linear);
             }
             else
             {
