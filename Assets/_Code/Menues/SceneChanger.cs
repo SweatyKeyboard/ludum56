@@ -24,7 +24,6 @@ namespace _Code.Menues
                 SceneManager.LoadScene(sceneIndex);
             else
                 SceneManager.LoadScene(0);
-            
         }
     }
 }

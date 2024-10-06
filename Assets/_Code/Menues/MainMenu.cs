@@ -22,5 +22,10 @@ namespace _Code.Menues
         {
             SceneManager.LoadScene("Level"+level);
         }
+
+        public void OpenTutor()
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

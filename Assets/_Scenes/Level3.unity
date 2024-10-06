@@ -349,10 +349,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0.5803922, g: 0.75553966, b: 1, a: 1}
-    topRight: {r: 0.5803922, g: 0.75553966, b: 1, a: 1}
-    bottomLeft: {r: 0, g: 0.5411765, b: 0.43799552, a: 1}
-    bottomRight: {r: 0, g: 0.5411765, b: 0.43799552, a: 1}
+    topLeft: {r: 0.93267554, g: 0.5803922, b: 1, a: 1}
+    topRight: {r: 0.93267554, g: 0.5803922, b: 1, a: 1}
+    bottomLeft: {r: 0.5411765, g: 0, b: 0.16458185, a: 1}
+    bottomRight: {r: 0.5411765, g: 0, b: 0.16458185, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -3321,10 +3321,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0.7132703, g: 1, b: 0.54901963, a: 1}
-    topRight: {r: 0.7132703, g: 1, b: 0.54901963, a: 1}
-    bottomLeft: {r: 0.32941177, g: 0.30246517, b: 0.035294123, a: 1}
-    bottomRight: {r: 0.32941177, g: 0.30246517, b: 0.035294123, a: 1}
+    topLeft: {r: 0.54901963, g: 0.7808852, b: 1, a: 1}
+    topRight: {r: 0.54901963, g: 0.7808852, b: 1, a: 1}
+    bottomLeft: {r: 0.035294123, g: 0.11147671, b: 0.32941177, a: 1}
+    bottomRight: {r: 0.035294123, g: 0.11147671, b: 0.32941177, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -6161,10 +6161,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0.5803922, g: 0.75553966, b: 1, a: 1}
-    topRight: {r: 0.5803922, g: 0.75553966, b: 1, a: 1}
-    bottomLeft: {r: 0, g: 0.5411765, b: 0.43799552, a: 1}
-    bottomRight: {r: 0, g: 0.5411765, b: 0.43799552, a: 1}
+    topLeft: {r: 0.93267554, g: 0.5803922, b: 1, a: 1}
+    topRight: {r: 0.93267554, g: 0.5803922, b: 1, a: 1}
+    bottomLeft: {r: 0.5411765, g: 0, b: 0.16458185, a: 1}
+    bottomRight: {r: 0.5411765, g: 0, b: 0.16458185, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -6309,7 +6309,7 @@ MonoBehaviour:
   _pileLayout: {fileID: 1394008597}
   _playButton: {fileID: 259725839}
   _turnsText: {fileID: 1064225424}
-  _maxTurns: 5
+  _maxTurns: 6
   _actionsList:
   - {fileID: 11400000, guid: 1d863652addd28e40a6ba37d02233b48, type: 2}
   - {fileID: 11400000, guid: 6c2306334ded4524ea065ea1dc81b59c, type: 2}
