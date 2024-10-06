@@ -17,5 +17,6 @@ MonoBehaviour:
     its <color=#639be0>middle</color> and <color=#639be0>bottom</color> action to
     <color=#c9ba49>destroying</color>
   <Data>k__BackingField: {fileID: 11400000, guid: fa6b8e867b10bfe4683ef1c5fb1a93d6, type: 2}
+  <Special>k__BackingField: 1
   <Icon>k__BackingField: {fileID: -758963287, guid: 951d8afe6b82e314b8af0fd75b9bdcc3, type: 3}
   <PupilColor>k__BackingField: {r: 0.5415094, g: 0.68128085, b: 0.7735849, a: 1}

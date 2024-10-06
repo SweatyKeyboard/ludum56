@@ -150,6 +150,7 @@ namespace _Code.Level
         {
             var block = _blocks.FirstOrDefault( x=> x.Key.x == positionX && x.Key.y == positionY);
             await block.Value.transform.DOScale(Vector3.zero, 2f / 3f).SetEase(Ease.OutQuint);
+            _blocks.Remove(new Vector2Int(positionX, positionY));
             Destroy(block.Value.gameObject);
         }
     }

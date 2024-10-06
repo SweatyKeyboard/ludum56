@@ -20,7 +20,7 @@ namespace _Code.Cards
         
         private bool _isCardSelected;
         private bool _isEntered;
-        private bool _isUsed;
+        public bool IsUsed { get; private set; }
 
         public event Action CardPlaced;
         public void SetCardSelectedState(bool isCardSelected)
@@ -38,18 +38,18 @@ namespace _Code.Cards
         {
             if (Input.GetMouseButtonUp(0))
             {
-                if (!_isEntered || _isUsed)
+                if (!_isEntered || IsUsed)
                     return;
             
                 CardPlaced?.Invoke();
-                _isUsed = true;         
+                IsUsed = true;         
                 _isEntered = false;
             }
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (!_isCardSelected || _isUsed)
+            if (!_isCardSelected || IsUsed)
                 return;
             
             _isEntered = true;
@@ -59,7 +59,7 @@ namespace _Code.Cards
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (!_isCardSelected || _isUsed)
+            if (!_isCardSelected || IsUsed)
                 return;
             
             _isEntered = false;
@@ -69,7 +69,7 @@ namespace _Code.Cards
 
         public void ForgetCard()
         {
-            _isUsed = false;
+            IsUsed = false;
         }
     }
 }

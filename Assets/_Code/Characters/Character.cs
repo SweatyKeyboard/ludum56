@@ -2,9 +2,7 @@ using System;
 using _Code.Cards;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Code.Characters
 {
@@ -18,20 +16,14 @@ namespace _Code.Characters
         [SerializeField] private CharacterSOData _data;
         [SerializeField] private float _blockMoveTime = 2f / 3f;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Image _pupil;
-        [SerializeField] private Image _hat;
+        [SerializeField] private SpriteRenderer _pupil;
+        [SerializeField] private SpriteRenderer _hat;
         
         private ECharacterAnimation _selectedAnim = 0;
         public event Func<CharacterPerformActionData, bool> TriedToPerformAction;
+        private ActionSOData[] _actions;
         
         private Vector2Int _gridPosition;
-
-        public void Init(CardSOData data)
-        {
-            _pupil.color = data.PupilColor;
-            _hat.sprite = data.Icon;
-        }
-        
         public async UniTask MoveToPosition(Vector3 position, Vector2Int gridPosition)
         {
             
@@ -62,7 +54,7 @@ namespace _Code.Characters
             for (var i = 0; i < 3; i++)
             {
                 var isSuccess = TriedToPerformAction?.Invoke(new CharacterPerformActionData(
-                        _data.Actions[i],
+                        _actions[i].Action,
                         _gridPosition + new Vector2Int(1, -i + 1)
                 )) ?? false;
 
@@ -88,6 +80,13 @@ namespace _Code.Characters
             Idle,
             Move,
             Jump
+        }
+
+        public void Init(CardSOData data, ActionSOData[] actions)
+        {
+            _pupil.color = data.PupilColor;
+            _hat.sprite = data.Icon;
+            _actions = actions;
         }
     }
 }

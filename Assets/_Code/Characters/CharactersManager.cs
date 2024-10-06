@@ -1,5 +1,7 @@
+using _Code.Cards;
 using _Code.Level;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Code.Characters
@@ -11,15 +13,6 @@ namespace _Code.Characters
         [SerializeField] private Character _characterPrefab;
         
         private Character _character;
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SpawnCharacter();
-                StartCharacterMoving().Forget();
-            }
-        }
 
         public async UniTask StartCharacterMoving()
         {
@@ -39,16 +32,19 @@ namespace _Code.Characters
             StartCharacterActing().Forget();
         }
 
-        private void SpawnCharacter()
-        {
-            var character = Instantiate(_characterPrefab, _spawnPoint.position, Quaternion.identity);
-            _character = character;
-        }
-
         private async UniTask StartCharacterActing()
         {
             _character.TriedToPerformAction += _cellGridBrain.TryPerformAction;
             _character.PerformAction().Forget();
+        }
+
+        public async UniTask SpawnNewCharacter(CardSOData card, ActionSOData[] actions)
+        {
+            var spawnedCharacter = Instantiate(_characterPrefab, _spawnPoint.position, Quaternion.identity);
+            spawnedCharacter.Init(card, actions);
+            _character = spawnedCharacter;
+            StartCharacterMoving().Forget();
+            await UniTask.WaitUntil(() => _character.IsDestroyed());
         }
     }
 }

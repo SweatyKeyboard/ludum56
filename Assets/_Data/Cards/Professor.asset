@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Professor
   m_EditorClassIdentifier: 
   <Header>k__BackingField: Professor
-  <Description>k__BackingField: '<color=#b5487f>If 2nd: </color>Copies the value
-    of the <color=#639be0>middle</color> action from the creature on the <color=#6ccf63>left</color>
-    to the creature on the <color=#6ccf63>right</color>'
+  <Description>k__BackingField: <i>If <color=#b5487f>2nd</color>:</i> Copies the
+    value of the <color=#639be0>middle</color> action from the creature on the <color=#6ccf63>left</color>
+    to the creature on the <color=#6ccf63>right</color>
   <Data>k__BackingField: {fileID: 11400000, guid: 47885c693b93ceb4e889872636cf3a4f, type: 2}
+  <Special>k__BackingField: 0
   <Icon>k__BackingField: {fileID: -1861074389, guid: 951d8afe6b82e314b8af0fd75b9bdcc3, type: 3}
-  <PupilColor>k__BackingField: {r: 0.348039, g: 0.23270196, b: 0.6075471, a: 1}
+  <PupilColor>k__BackingField: {r: 0.48990968, g: 0.41242433, b: 0.6603774, a: 1}

@@ -12,5 +12,6 @@ namespace _Code.Characters
         
         public ECharacterBuildAction[] Actions => new [] { _topBlockAction.Action, _middleBlockAction.Action, _bottomBlockAction.Action };
         public Sprite[] Sprites => new [] { _topBlockAction.Icon, _middleBlockAction.Icon, _bottomBlockAction.Icon };
+        public ActionSOData[] Data => new [] { _topBlockAction, _middleBlockAction, _bottomBlockAction };
     }
 }
