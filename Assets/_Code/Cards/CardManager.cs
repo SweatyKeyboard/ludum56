@@ -83,10 +83,10 @@ namespace _Code.Cards
                     await _selectedCard.transform.DOScale(_selectedCard.transform.localScale * 0.5f, 0.2f).SetEase(Ease.InCubic);
                     _selectedCard.transform.SetParent(_myDeckParentTransform);
                     _selectedCard.SetIsInMyDeckState(true);
-                    _selectedCard.SetCardPlaceInMyDeck(-1);
                     _pileZone.ForgetCard();
                     if (_selectedCard.CardPlaceInMyDeck >= 0)
                         _cardPlaces[_selectedCard.CardPlaceInMyDeck].ForgetCard();
+                    Debug.Log(cached);
                     _selectedCard.SetCardPlaceInMyDeck(cached);
                     _selectedCard = null;
                     _isPuttingCard = false;
@@ -104,6 +104,7 @@ namespace _Code.Cards
                 _selectedCard.SetIsInMyDeckState(false);
                 _pileZone.ForgetCard();
                 _cardPlaces[_selectedCard.CardPlaceInMyDeck].ForgetCard();
+                _selectedCard.SetCardPlaceInMyDeck(-1);
                 _selectedCard = null;
                 _isPuttingCard = false;
                 CheckMyDeck().Forget();
@@ -112,6 +113,7 @@ namespace _Code.Cards
 
         private async UniTask CheckMyDeck()
         {
+            Debug.Log(_cardPlaces[0].IsUsed + " " + _cardPlaces[1].IsUsed + " " + _cardPlaces[2].IsUsed);
             if (_cardPlaces.All(x => x.IsUsed))
             {
                 if (!_playButton.gameObject.activeSelf)
