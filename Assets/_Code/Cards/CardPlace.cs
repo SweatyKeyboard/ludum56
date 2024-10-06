@@ -71,5 +71,11 @@ namespace _Code.Cards
         {
             IsUsed = false;
         }
+
+        public void Reinit()
+        {
+            _isCardSelected = false;
+            IsUsed = false;
+        }
     }
 }

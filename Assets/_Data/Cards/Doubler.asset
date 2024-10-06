@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc7c536a36d0485891f347e64e1f2f84, type: 3}
-  m_Name: Who
+  m_Name: Doubler
   m_EditorClassIdentifier: 
-  <Header>k__BackingField: ???
-  <Description>k__BackingField: Forces to <color=#b5487f>1st</color> creature appear
-    twice
+  <Header>k__BackingField: Doubler
+  <Description>k__BackingField: Duplicates <color=#b5487f>1st</color> creature
   <Data>k__BackingField: {fileID: 11400000, guid: 48df92e610c74c443a99d5536c2de250, type: 2}
   <Special>k__BackingField: 2
-  <Icon>k__BackingField: {fileID: 1695006919, guid: f780fbb6967235e4c8afd3fabdb281c2, type: 3}
+  <Icon>k__BackingField: {fileID: -1916668726, guid: 951d8afe6b82e314b8af0fd75b9bdcc3, type: 3}
   <PupilColor>k__BackingField: {r: 0.3056603, g: 0.25846207, b: 0.22549656, a: 1}

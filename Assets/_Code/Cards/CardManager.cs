@@ -31,46 +31,7 @@ namespace _Code.Cards
 
         public async UniTask Init()
         {
-            var i = 0;
-            foreach (var card in _cards)
-            {
-                var cached = i;
-                card.gameObject.SetActive(true);
-                card.Init(_cardsData[Random.Range(0, _cardsData.Length)]);
-                card.StoppedLooking += () =>
-                {
-                    foreach (var cardPlace in _cardPlaces)
-                    {
-                        cardPlace.SetCardSelectedState(false);
-                    }
-                    _pileZone.SetCardSelectedState(false);
-
-                    if (!card.IsInMyDeck)
-                    {
-                        MoveCardToMyDeck(card).Forget();
-                    }
-                    else
-                    {
-                        card.transform.DOMove(_cardPlaces[card.CardPlaceInMyDeck].transform.position, 0.2f).SetEase(Ease.InCubic);
-                    }
-                    
-                    TrySetSelectedToNull().Forget();
-                };
-                card.StartedLooking += () =>
-                {
-                    if (card.IsInMyDeck)
-                    {
-                        _pileZone.SetCardSelectedState(true);
-                    }
-                    foreach (var cardPlace in _cardPlaces)
-                    {
-                        cardPlace.SetCardSelectedState(true);
-                    }
-
-                    _selectedCard = card;
-                };
-                i++;
-            }
+            InitReinitable();
 
             var index = 0;
             foreach (var cardPlace in _cardPlaces)
@@ -111,9 +72,52 @@ namespace _Code.Cards
             };
         }
 
+        private void InitReinitable()
+        {
+            var i = 0;
+            foreach (var card in _cards)
+            {
+                var cached = i;
+                card.gameObject.SetActive(true);
+                card.Init(_cardsData[Random.Range(0, _cardsData.Length)]);
+                card.StoppedLooking += () =>
+                {
+                    foreach (var cardPlace in _cardPlaces)
+                    {
+                        cardPlace.SetCardSelectedState(false);
+                    }
+                    _pileZone.SetCardSelectedState(false);
+
+                    if (!card.IsInMyDeck)
+                    {
+                        MoveCardToMyDeck(card).Forget();
+                    }
+                    else
+                    {
+                        card.transform.DOMove(_cardPlaces[card.CardPlaceInMyDeck].transform.position, 0.2f).SetEase(Ease.InCubic);
+                    }
+                    
+                    TrySetSelectedToNull().Forget();
+                };
+                card.StartedLooking += () =>
+                {
+                    if (card.IsInMyDeck)
+                    {
+                        _pileZone.SetCardSelectedState(true);
+                    }
+                    foreach (var cardPlace in _cardPlaces)
+                    {
+                        cardPlace.SetCardSelectedState(true);
+                    }
+
+                    _selectedCard = card;
+                };
+                i++;
+            }
+        }
+
         private async UniTask CheckMyDeck()
         {
-            Debug.Log(_cardPlaces[0].IsUsed + " " + _cardPlaces[1].IsUsed + " " + _cardPlaces[2].IsUsed);
             if (_cardPlaces.All(x => x.IsUsed))
             {
                 if (!_playButton.gameObject.activeSelf)
@@ -179,6 +183,23 @@ namespace _Code.Cards
                     card.Use().Forget();
                     await _charactersManager.SpawnNewCharacter(card.Data, card.Actions);
                 }
+            }
+
+            Reinit();
+        }
+
+        private void Reinit()
+        {
+            InitReinitable();
+            foreach (var card in _cards)
+            {
+                card.Reinit();
+                card.transform.SetParent(_pileParentTransform);
+            }
+
+            foreach (var place in _cardPlaces)
+            {
+                place.Reinit();
             }
         }
 

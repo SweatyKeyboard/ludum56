@@ -162,6 +162,18 @@ namespace _Code.Cards
                 _copiesCount--;
                 await transform.DOScale(Vector3.zero, 2f / 3f).SetEase(Ease.OutCubic);
             }
-        } 
+        }
+
+        public void Reinit()
+        {
+            CanBeTaken = true;
+            SetIsInMyDeckState(false);
+            SetCardPlaceInMyDeck(-1);
+            gameObject.SetActive(true);
+            transform.localScale = Vector3.one * 0.5f;
+            _copiesCounter.SetActive(false);
+            _copiesCounter.transform.localScale = Vector3.zero;
+            _copiesCount = 1;
+        }
     }
 }
