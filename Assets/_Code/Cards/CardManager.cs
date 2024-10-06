@@ -201,6 +201,13 @@ namespace _Code.Cards
 
         private void Reinit()
         {
+            _turns++;
+            if (_turns > _maxTurns)
+            {
+                _loseWindow.Show();
+                return;
+            }
+            
             InitReinitable();
             foreach (var card in _cards)
             {
@@ -213,11 +220,6 @@ namespace _Code.Cards
                 place.Reinit();
             }
 
-            _turns++;
-            if (_turns > _maxTurns)
-            {
-                _loseWindow.Show();
-            }
             UpdateTurnsText();
         }
 

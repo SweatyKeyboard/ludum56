@@ -24,6 +24,8 @@ namespace _Code.Characters
         private ActionSOData[] _actions;
         
         private Vector2Int _gridPosition;
+        public CardSOData Extra { get; set; }
+
         public async UniTask MoveToPosition(Vector3 position, Vector2Int gridPosition)
         {
             if (!Mathf.Approximately(position.y, transform.position.y))

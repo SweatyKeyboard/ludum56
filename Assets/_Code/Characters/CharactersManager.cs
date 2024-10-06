@@ -25,7 +25,7 @@ namespace _Code.Characters
             
             while (currentRow != -1)
             {
-                currentRow = _cellGridBrain.GetAvailableBlockInColumn(currentColumn, currentRow);
+                currentRow = _cellGridBrain.GetAvailableBlockInColumn(currentColumn, currentRow, _character.Extra);
                 if (currentRow == -1)
                     break;
 
@@ -63,6 +63,7 @@ namespace _Code.Characters
             var spawnedCharacter = Instantiate(_characterPrefab, _spawnPoint.position, Quaternion.identity);
             spawnedCharacter.Init(card, actions);
             _character = spawnedCharacter;
+            _character.Extra = card;
             StartCharacterMoving().Forget();
             await UniTask.WaitUntil(() => _character.IsDestroyed());
         }

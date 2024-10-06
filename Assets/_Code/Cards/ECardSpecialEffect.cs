@@ -4,6 +4,7 @@ namespace _Code.Cards
     {
         Professor,
         Railroader,
-        Doubler
+        Doubler,
+        Jumper
     }
 }

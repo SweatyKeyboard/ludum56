@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7c536a36d0485891f347e64e1f2f84, type: 3}
+  m_Name: Jumper
+  m_EditorClassIdentifier: 
+  <Header>k__BackingField: Jumper
+  <Description>k__BackingField: '<i><color=#cf875d>In game: </color></i> Can jump
+    up to 2 cells high'
+  <Data>k__BackingField: {fileID: 11400000, guid: 4b7873ede58e6f246a07fb7ca6f8b635, type: 2}
+  <Special>k__BackingField: 3
+  <Icon>k__BackingField: {fileID: 1213124812, guid: 951d8afe6b82e314b8af0fd75b9bdcc3, type: 3}
+  <PupilColor>k__BackingField: {r: 0.90188676, g: 0.59786284, b: 0.54964036, a: 1}

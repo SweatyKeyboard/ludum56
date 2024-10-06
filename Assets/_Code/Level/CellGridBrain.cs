@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Code.Cards;
 using _Code.Characters;
 using _Code.Level.Blocks;
 using Cysharp.Threading.Tasks;
@@ -80,16 +81,24 @@ namespace _Code.Level
             }
         }
 
-        public int GetAvailableBlockInColumn(int columnIndex, int lastColumnAvailableBlock)
+        public int GetAvailableBlockInColumn(int columnIndex, int lastColumnAvailableBlock, CardSOData cardSoData = null)
         {
             if (columnIndex > _cellGridSOData.Width - 1)
                 return -1;
+
+            var heightValue = cardSoData?.Special == ECardSpecialEffect.Jumper
+                    ? lastColumnAvailableBlock + 1
+                    : lastColumnAvailableBlock;
             
-            for (var i = Mathf.Clamp(lastColumnAvailableBlock - 2, 0, _cellGridSOData.Height - 1); i <= Mathf.Clamp(lastColumnAvailableBlock, 0, _cellGridSOData.Height - 1); i++)
+            for (var i = Mathf.Clamp(lastColumnAvailableBlock - 2, 0, _cellGridSOData.Height - 1); i <= Mathf.Clamp(heightValue, 0, _cellGridSOData.Height - 1); i++)
             {
                 if (_cells[columnIndex, i] != 0 && _cells[columnIndex, i + 1] == 0)
                 {
-                    if (i >= lastColumnAvailableBlock && columnIndex > 0 && _cells[Mathf.Clamp(columnIndex - 1, 0, _cellGridSOData.Width - 1), i + 1] != 0)
+                    if (i >= lastColumnAvailableBlock && columnIndex > 0 && _cells[Mathf.Clamp(columnIndex - 1, 0, _cellGridSOData.Width - 1), Mathf.Clamp(i + 1, 0, _cellGridSOData.Width - 1)] != 0)
+                        continue;
+                    
+                    if (cardSoData?.Special == ECardSpecialEffect.Jumper &&
+                        i >= lastColumnAvailableBlock && columnIndex > 0 && _cells[Mathf.Clamp(columnIndex - 1, 0, _cellGridSOData.Width - 1), Mathf.Clamp(i + 2, 0, _cellGridSOData.Width - 1)] != 0)
                         continue;
                     
                     return i + 1;
