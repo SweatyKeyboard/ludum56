@@ -1,8 +1,11 @@
 using System;
 using System.Linq;
+using System.Threading;
 using _Code.Characters;
+using _Code.Menues;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -20,14 +23,19 @@ namespace _Code.Cards
         [SerializeField] private PileZone _pileZone;
         [SerializeField] private RectTransform _pileLayout;
         [SerializeField] private Button _playButton;
+        [SerializeField] private TMP_Text _turnsText;
+        [SerializeField] private int _maxTurns = 3;
 
         [SerializeField] private ActionSOData[] _actionsList;
 
         [SerializeField] private CharactersManager _charactersManager;
+        [SerializeField] private LoseMenu _loseWindow;
         
         private CardView _selectedCard;
         private bool _isPuttingCard;
         private CardView[] _activeCards;
+        private readonly CancellationTokenSource _cancellationToken = new();
+        private int _turns = 1;
 
         public async UniTask Init()
         {
@@ -47,7 +55,6 @@ namespace _Code.Cards
                     _pileZone.ForgetCard();
                     if (_selectedCard.CardPlaceInMyDeck >= 0)
                         _cardPlaces[_selectedCard.CardPlaceInMyDeck].ForgetCard();
-                    Debug.Log(cached);
                     _selectedCard.SetCardPlaceInMyDeck(cached);
                     _selectedCard = null;
                     _isPuttingCard = false;
@@ -162,11 +169,15 @@ namespace _Code.Cards
                 card.CanBeTaken = false;
             }
 
-            RunCardEffects().Forget();
+            UpdateTurnsText();
+            RunGameAsync().Forget();
         }
 
-        private async UniTask RunCardEffects()
+        private async UniTask RunGameAsync()
         {
+            await _playButton.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InCubic);
+            _playButton.gameObject.SetActive(false);
+            
             _activeCards = _cards.Where(x => x.CardPlaceInMyDeck != -1).OrderBy(x => x.CardPlaceInMyDeck).ToArray();
             foreach (var card in _activeCards)
             {
@@ -181,7 +192,7 @@ namespace _Code.Cards
                 while (card.CanBeUsed)
                 {
                     card.Use().Forget();
-                    await _charactersManager.SpawnNewCharacter(card.Data, card.Actions);
+                    await _charactersManager.SpawnNewCharacter(card.Data, card.Actions).AttachExternalCancellation(_cancellationToken.Token);
                 }
             }
 
@@ -201,6 +212,18 @@ namespace _Code.Cards
             {
                 place.Reinit();
             }
+
+            _turns++;
+            if (_turns > _maxTurns)
+            {
+                _loseWindow.Show();
+            }
+            UpdateTurnsText();
+        }
+
+        private void UpdateTurnsText()
+        {
+            _turnsText.text = $"Turn: {_turns}/{_maxTurns}";
         }
 
         private void ApplyCardEffect(ECardSpecialEffect cardSpecial, int order)
@@ -227,6 +250,12 @@ namespace _Code.Cards
                     _activeCards[0].AddCopy();
                     break;
             }
+        }
+
+        public void Disable()
+        {
+            _cancellationToken.Cancel();
+            _cancellationToken.Dispose();
         }
     }
 }

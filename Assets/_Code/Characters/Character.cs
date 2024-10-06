@@ -12,8 +12,8 @@ namespace _Code.Characters
         private static readonly int OnMove = Animator.StringToHash("OnMove");
         private static readonly int OnAct = Animator.StringToHash("OnAct");
         private static readonly int OnDeath = Animator.StringToHash("OnDeath");
+        private static readonly int OnDance = Animator.StringToHash("OnDance");
         
-        [SerializeField] private CharacterSOData _data;
         [SerializeField] private float _blockMoveTime = 2f / 3f;
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _pupil;
@@ -26,7 +26,6 @@ namespace _Code.Characters
         private Vector2Int _gridPosition;
         public async UniTask MoveToPosition(Vector3 position, Vector2Int gridPosition)
         {
-            
             if (!Mathf.Approximately(position.y, transform.position.y))
             {
                 if (_selectedAnim != ECharacterAnimation.Jump)
@@ -87,6 +86,11 @@ namespace _Code.Characters
             _pupil.color = data.PupilColor;
             _hat.sprite = data.Icon;
             _actions = actions;
+        }
+
+        public void FinishDance()
+        {
+            _animator.SetTrigger(OnDance);
         }
     }
 }

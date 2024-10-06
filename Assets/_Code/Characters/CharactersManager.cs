@@ -1,5 +1,6 @@
 using _Code.Cards;
 using _Code.Level;
+using _Code.Menues;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace _Code.Characters
         [SerializeField] private CellGridBrain _cellGridBrain;
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private Character _characterPrefab;
+        [SerializeField] private Transform _finishPos;
+        [SerializeField] private WinMenu _winMenu;
+        [SerializeField] private CardManager _cardManager;
         
         private Character _character;
 
@@ -24,12 +28,28 @@ namespace _Code.Characters
                 currentRow = _cellGridBrain.GetAvailableBlockInColumn(currentColumn, currentRow);
                 if (currentRow == -1)
                     break;
-                
-                await _character.MoveToPosition(_cellGridBrain.GetCellPosition(currentColumn, currentRow), new Vector2Int(currentColumn, currentRow));
+
+                var position = currentColumn < _cellGridBrain.Data.Width
+                        ? _cellGridBrain.GetCellPosition(currentColumn, currentRow)
+                        : _finishPos.position;
+                await _character.MoveToPosition(position, new Vector2Int(currentColumn, currentRow));
                 currentColumn++;
             }
             
+            if (currentColumn >= _cellGridBrain.Data.Width)
+            {
+                FinishGame();
+                return;
+            }
+            
             StartCharacterActing().Forget();
+        }
+
+        private void FinishGame()
+        {
+            _character.FinishDance();
+            _cardManager.Disable();
+            _winMenu.Show();
         }
 
         private async UniTask StartCharacterActing()

@@ -16,6 +16,7 @@ namespace _Code.Level
         private int[,] _cells;
         private readonly Dictionary<Vector2Int, Block> _blocks = new();
         private readonly Vector3 _adjustPositionVector = new (0, -0.04f, 0);
+        public LevelSOData Data => _levelSOData;
 
         private void Start()
         {
@@ -81,6 +82,9 @@ namespace _Code.Level
 
         public int GetAvailableBlockInColumn(int columnIndex, int lastColumnAvailableBlock)
         {
+            if (columnIndex > _cellGridSOData.Width - 1)
+                return -1;
+            
             for (var i = Mathf.Clamp(lastColumnAvailableBlock - 2, 0, _cellGridSOData.Height - 1); i <= Mathf.Clamp(lastColumnAvailableBlock, 0, _cellGridSOData.Height - 1); i++)
             {
                 if (_cells[columnIndex, i] != 0 && _cells[columnIndex, i + 1] == 0)
