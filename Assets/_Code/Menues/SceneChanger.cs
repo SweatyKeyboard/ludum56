@@ -18,14 +18,13 @@ namespace _Code.Menues
         public void NextLevel()
         {
             var currentScene = SceneManager.GetActiveScene().buildIndex;
-            try
-            {
-                SceneManager.LoadScene(currentScene + 1);
-            }
-            catch
-            {
+            
+            var sceneIndex = currentScene + 1; 
+            if (SceneUtility.GetScenePathByBuildIndex(sceneIndex).Length > 0)
+                SceneManager.LoadScene(sceneIndex);
+            else
                 SceneManager.LoadScene(0);
-            }
+            
         }
     }
 }
