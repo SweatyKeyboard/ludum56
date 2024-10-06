@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -30,6 +31,7 @@ namespace _Code.Cards
 
         [SerializeField] private CharactersManager _charactersManager;
         [SerializeField] private LoseMenu _loseWindow;
+        [SerializeField] private Button _turnsButton;
         
         private CardView _selectedCard;
         private bool _isPuttingCard;
@@ -205,6 +207,12 @@ namespace _Code.Cards
             if (_turns > _maxTurns)
             {
                 _loseWindow.Show();
+                _playButton.gameObject.SetActive(false);
+                _turnsButton.gameObject.SetActive(false);
+                foreach (var card in _cards)
+                {
+                    card.Deactivate();
+                }
                 return;
             }
             
@@ -251,6 +259,13 @@ namespace _Code.Cards
                 case ECardSpecialEffect.Doubler:
                     _activeCards[0].AddCopy();
                     break;
+                
+                case ECardSpecialEffect.Sapper:
+                    for (var i = order + 1; i < _activeCards.Length; i++)
+                    {
+                        _activeCards[i].ReplaceActionsOfType(ECharacterBuildAction.Nothing, _actionsList.FirstOrDefault(x => x.Action == ECharacterBuildAction.BuildSolid)).Forget();
+                    }
+                    break;
             }
         }
 
@@ -258,6 +273,11 @@ namespace _Code.Cards
         {
             _cancellationToken.Cancel();
             _cancellationToken.Dispose();
+        }
+
+        public void SkipTurn()
+        {
+            Reinit();
         }
     }
 }

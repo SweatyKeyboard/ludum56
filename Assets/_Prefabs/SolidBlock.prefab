@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7126841476073656340}
   - component: {fileID: 144700581943872134}
-  - component: {fileID: 9129461680519087733}
+  - component: {fileID: -3714741496795882552}
   m_Layer: 0
-  m_Name: Block
+  m_Name: SolidBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8ab6a309269d7584b9f157c2c8afa0f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2c74e31d5cd8b14ab6de776d857e114, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9129461680519087733
+--- !u!114 &-3714741496795882552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6293874438524322078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea818ad25f464d5ca9554deab32c91ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ce9cc8446524c12a05d171217b7e97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 144700581943872134}
+  _solidState: {fileID: 21300000, guid: b2c74e31d5cd8b14ab6de776d857e114, type: 3}
+  _usualState: {fileID: 21300000, guid: 8ab6a309269d7584b9f157c2c8afa0f2, type: 3}

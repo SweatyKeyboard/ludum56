@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using _Code.Characters;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -65,6 +66,7 @@ namespace _Code.Cards
             _header.text = cardData.Header;
             _description.text = cardData.Description;
             _mainIcon.sprite = cardData.Icon;
+            _header.color = cardData.PupilColor;
 
             for (var i = 0; i < _actionIcons.Length; i++)
             {
@@ -130,6 +132,23 @@ namespace _Code.Cards
             await UniTask.Delay(TimeSpan.FromSeconds(time / 2f));
             Actions[index] = action;
         }
+        
+        public async UniTask ReplaceActionsOfType(ECharacterBuildAction targetAction, ActionSOData newAction)
+        {
+            for (var i = 0; i < _actionIcons.Length; i++)
+            {
+                if (Actions[i].Action != targetAction)
+                    continue;
+                
+                var time = 2f / 3f;
+                _actionIcons[i].transform.DOScale(Vector3.zero, time / 2f);
+                await UniTask.Delay(TimeSpan.FromSeconds(time / 2f));
+                _actionIcons[i].sprite = newAction.Icon;
+                _actionIcons[i].transform.DOScale(Vector3.one, time / 2f);
+                await UniTask.Delay(TimeSpan.FromSeconds(time / 2f));
+                Actions[i] = newAction;
+            }
+        }
 
         public async UniTask SetCopiesCount(int count)
         {
@@ -174,6 +193,11 @@ namespace _Code.Cards
             _copiesCounter.SetActive(false);
             _copiesCounter.transform.localScale = Vector3.zero;
             _copiesCount = 1;
+        }
+
+        public void Deactivate()
+        {
+            CanBeTaken = false;
         }
     }
 }

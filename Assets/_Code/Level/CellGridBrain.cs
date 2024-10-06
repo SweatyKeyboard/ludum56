@@ -118,9 +118,24 @@ namespace _Code.Level
             switch (data.Action)
             {
                 case ECharacterBuildAction.Build:
+                    if (data.Position.y < 0 || data.Position.y > _cellGridSOData.Height)
+                        break;
+                    
                     if (_cells[data.Position.x, data.Position.y] == 0)
                     {
                         SpawnBlock(data.Position.x, data.Position.y, _cellGridSOData.BlocksPrefabs[0]);
+                        _cells[data.Position.x, data.Position.y] = 1;
+                        actionPerformed = true;
+                    }
+                    break;
+                
+                case ECharacterBuildAction.BuildSolid:
+                    if (data.Position.y < 0 || data.Position.y > _cellGridSOData.Height)
+                        break;
+                    
+                    if (_cells[data.Position.x, data.Position.y] == 0)
+                    {
+                        SpawnBlock(data.Position.x, data.Position.y, _cellGridSOData.BlocksPrefabs[1]);
                         _cells[data.Position.x, data.Position.y] = 1;
                         actionPerformed = true;
                     }
@@ -130,7 +145,6 @@ namespace _Code.Level
                     if (_cells[data.Position.x, data.Position.y] != 0)
                     {
                         DestroyBlock(data.Position.x, data.Position.y).Forget();
-                        _cells[data.Position.x, data.Position.y] = 0;
                         actionPerformed = true;
                     }
                     break;
@@ -153,7 +167,6 @@ namespace _Code.Level
             {
                 spawnedBlock.transform.localScale = Vector3.zero; 
                 spawnedBlock.transform.DOScale(Vector3.one * _cellGridSOData.BlockSize, 2f / 3f).SetEase(Ease.InCubic);
-            
             }
             
             _blocks.Add(new Vector2Int(x, y), spawnedBlock);
@@ -162,8 +175,14 @@ namespace _Code.Level
         private async UniTask DestroyBlock(int positionX, int positionY)
         {
             var block = _blocks.FirstOrDefault( x=> x.Key.x == positionX && x.Key.y == positionY);
+            block.Value.HP--;
+            
+            if (block.Value.HP > 0)
+                return;
+            
             await block.Value.transform.DOScale(Vector3.zero, 2f / 3f).SetEase(Ease.OutQuint);
             _blocks.Remove(new Vector2Int(positionX, positionY));
+            _cells[positionX, positionY] = 0;
             Destroy(block.Value.gameObject);
         }
     }

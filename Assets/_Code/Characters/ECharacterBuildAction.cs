@@ -4,6 +4,7 @@ namespace _Code.Characters
     {
         Nothing,
         Build,
-        Destroy
+        Destroy,
+        BuildSolid
     }
 }

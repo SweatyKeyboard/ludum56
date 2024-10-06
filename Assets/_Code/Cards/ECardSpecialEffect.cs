@@ -5,6 +5,7 @@ namespace _Code.Cards
         Professor,
         Railroader,
         Doubler,
-        Jumper
+        Jumper,
+        Sapper
     }
 }
